@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
 app.post("/", jsonParser, function (req, res) {
     if (!req.body) return res.sendStatus(400)
     console.log(req.body)
-    const expression = req.body.saveHistory,
+    const expression = req.body.expression,
         result = req.body.result
     const history_ = new History({
         expression: expression,
