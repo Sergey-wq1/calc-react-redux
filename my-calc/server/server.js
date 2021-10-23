@@ -8,6 +8,7 @@ const app = express()
 
 const PORT = 3001 || process.env.PORT
 
+
 const historySchema = new Schema({
     expression: String,
     result: Number
@@ -30,24 +31,40 @@ connectDb()
     .on('disconnected', connectDb)
     .once('open', startServer)
 
-app.get('/', (req, res) => {
-    res.json({
-        user: 'Alex'
+app.get('/his', (req, res) => {
+    History.find({}, function (err, docs) {
+        mongoose.disconnect()
+        if (err) return console.log(err)
+        res.send(docs)
     })
 })
 
 app.post("/", jsonParser, function (req, res) {
     if (!req.body) return res.sendStatus(400)
-    console.log(req.body)
     const expression = req.body.expression,
         result = req.body.result
+    console.log('добавляю >>' + result + expression)
     const history_ = new History({
         expression: expression,
         result: result
-    });
+    })
 
     history_.save(function (err) {
-        if (err) return console.log(err);
-        res.send(history_);
-    });
+        if (err) return console.log(err)
+        res.send(history_)
+    })
+})
+
+app.delete('/', jsonParser, function (req, res) {
+    if (!req.body) return res.sendStatus(400)
+    const expression = req.body.expression,
+        result = req.body.result
+    console.log('удаляю >>' + result + expression)
+    History.deleteOne({
+        expression,
+        result
+    }, function (err, result) {
+        mongoose.disconnect()
+        if (err) return console.log(err)
+    })
 })
