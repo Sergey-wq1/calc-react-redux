@@ -1,4 +1,4 @@
-import { connect, useDispatch, useSelector } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import React, { useEffect } from 'react'
 import { Grid } from '@mui/material'
 import { styled } from '@mui/material/styles'
@@ -33,6 +33,12 @@ import ButtonJSX from './scripts/retButJSX'
 import GetRequest from './scripts/GetRequest'
 
 function App(props) {
+  // eslint-disable-next-line react/destructuring-assignment
+  let blockedPoint = props.counter.disabledPoint
+  useEffect(() => {
+    blockedPoint = props.disabledPoint
+  // eslint-disable-next-line react/destructuring-assignment
+  }, [blockedPoint])
   const funcOperation = functions(props)
   const dispatch = useDispatch()
   const Item = styled(Paper)(({ theme }) => ({
@@ -46,16 +52,14 @@ function App(props) {
     const valType = typeOperation(val.type)
     if (val.type === '0') return ButtonJSX.zero(funcOperation[val.data], i, val)
     if (valType) return ButtonJSX.greyButton(funcOperation[val.data], i, val)
+    if (val.type === ',') return ButtonJSX.blockedPoint(blockedPoint, funcOperation[val.data], i, val)
     return ButtonJSX.rest(funcOperation[val.data], i, val)
   })
 
-  const updateNedeed = useSelector((value) => value.num.updateNedeed)
-
   useEffect(() => {
     dispatch(GetRequest.getHistory())
-    console.log(updateNedeed)
   // eslint-disable-next-line react/destructuring-assignment
-  }, [updateNedeed])
+  }, [props.counter.updateNedeed])
 
   return (
     <div className="App">

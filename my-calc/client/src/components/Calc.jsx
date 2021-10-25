@@ -7,7 +7,9 @@ export const Calc = ({ values, operationArray }) => (
     <Box
       className="display"
       component="span"
-      sx={{ bgcolor: 'text.secondary', border: 1, display: 'block' }}
+      sx={{
+        bgcolor: '#B0D6DE', border: 1, borderRadius: 4, display: 'block', color: 'black',
+      }}
     >
       {values.counter.counter}
     </Box>

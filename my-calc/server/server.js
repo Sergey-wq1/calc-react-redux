@@ -34,7 +34,7 @@ connectDb()
 app.get('/his', (req, res) => {
     History.find({}, function (err, docs) {
         mongoose.disconnect()
-        if (err) return console.log(err)
+        if (err) return res.send(err)
         res.send(docs)
     })
 })
@@ -65,6 +65,6 @@ app.delete('/', jsonParser, function (req, res) {
         result
     }, function (err, result) {
         mongoose.disconnect()
-        if (err) return console.log(err)
+        if (err) return res.send('Обрабатываю запрос...')
     })
 })

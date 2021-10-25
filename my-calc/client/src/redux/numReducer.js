@@ -18,6 +18,7 @@ import updateHistory from '../scripts/updateHistory'
 import returnObjectPropertyTypeValue from '../scripts/valuesNumOperation'
 
 const initialState = {
+  disabledPoint: false,
   updateNedeed: 0,
   addHistory: [],
   history: [],
@@ -37,37 +38,43 @@ const numReducer = (state = initialState, action) => {
       return {
         ...state,
         addHistory: [],
+        disabledPoint: false,
         counter: `${operationSign.putAway(state.counter)}+`,
       }
     case acNumOperation:
       return {
         ...state,
         addHistory: [],
+        disabledPoint: false,
         counter: '',
       }
     case multiplyNumOperation:
       return {
         ...state,
         addHistory: [],
+        disabledPoint: false,
         counter: `${operationSign.putAway(state.counter)}*`,
       }
     case minusplyNumOperation:
       return {
         ...state,
         addHistory: [],
+        disabledPoint: false,
         counter: `${operationSign.putAway(state.counter)}-`,
       }
     case delplyNumOperation:
       return {
         ...state,
         addHistory: [],
+        disabledPoint: false,
         counter: `${operationSign.putAway(state.counter)}/`,
       }
     case pointNumOperation:
       return {
         ...state,
+        disabledPoint: true,
         addHistory: [],
-        counter: `${operationSign.putAway(state.counter)}.`,
+        counter: `${operationSign.pointEnd(state.counter)}.`,
       }
     case persentNumOperation:
       return {
@@ -76,25 +83,18 @@ const numReducer = (state = initialState, action) => {
         counter: `${operationSign.putAway(state.counter)}%`,
       }
     case plusminNumOperation:
-      if (state.counter[state.counter.length - 1] === '+') {
-        return {
-          ...state,
-          addHistory: [],
-          counter: `${state.counter.slice(0, state.counter.length - 1)}-`,
-        }
-      } if (state.counter[state.counter.length - 1] === '-') {
-        return {
-          ...state,
-          addHistory: [],
-          counter: `${state.counter.slice(0, state.counter.length - 1)}+`,
-        }
+      return {
+        ...state,
+        addHistory: [],
+        disabledPoint: false,
+        counter: operationSign.plusMinOperation(state.counter),
       }
-      break
     case evalNumOperation:
       Fetch('/', 'POST', state.counter, operationSign.putFirst(operationSign.endValue(state.counter)))
       return {
         ...state,
         updateNedeed: state.updateNedeed + 1,
+        disabledPoint: false,
         counter: operationSign.putFirst(operationSign.endValue(state.counter)),
       }
     case deleteHistory:
@@ -105,7 +105,6 @@ const numReducer = (state = initialState, action) => {
         history: updateHistory(state.history),
       }
     case showRenewHistory:
-      console.log('работаю')
       return {
         ...state,
         history: action.data,
@@ -113,7 +112,6 @@ const numReducer = (state = initialState, action) => {
     default:
       return state
   }
-  return undefined
 }
 
 export default numReducer
