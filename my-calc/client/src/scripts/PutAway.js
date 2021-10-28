@@ -9,6 +9,7 @@ class OperationSign {
     this.type = ['+', '-', '*', '/', '.', '%']
     this.typeNoALL = ['*', '/', '.', '%']
     this.typeWithoutPointPercent = ['+', '-', '*', '/']
+    this.onlyMultiplyAndDivision = ['*', '/']
   }
 
   putAway(mas) {
@@ -43,23 +44,30 @@ class OperationSign {
     return returnEnd.join('')
   }
 
-  plusMinOperation(mas) {
+  plusMinOperation(arrayNum) {
+    const arrayString = arrayNum.toString()
     const NumValue = []
     let result = 0
     let endValue = 0
-    for (let i = mas.length - 1; i >= 0; i--) {
+    for (let i = arrayString.length - 1; i >= 0; i--) {
       // eslint-disable-next-line no-param-reassign
-      if (this.typeWithoutPointPercent.includes(mas[i])) {
+      if (this.typeWithoutPointPercent.includes(arrayString[i])) {
         NumValue.push(i)
       }
     }
-    result = mas.slice(NumValue[0], mas.length)
-    endValue = mas.slice(NumValue[0] + 1, mas.length)
-    if (result > 0) return [...mas.slice(0, NumValue[0] + 1), '(', '-', endValue, ')'].join('')
-    if (result < 0) return [...mas.slice(0, NumValue[0] + 1), '(', '+', endValue, ')'].join('')
-    if (mas < 0) return ['+', ...mas].join('')
-    if (mas > 0) return ['-', ...mas].join('')
-    return mas
+    result = arrayString.slice(NumValue[0], arrayString.length)
+    endValue = arrayString.slice(NumValue[0] + 1, arrayString.length)
+    if (result > 0) return [...arrayString.slice(0, NumValue[0] + 1), '(', '-', endValue, ')'].join('')
+    if (result < 0) return [...arrayString.slice(0, NumValue[0] + 1), '(', '+', endValue, ')'].join('')
+    if (arrayString[NumValue[0]] === '/' || arrayString[NumValue[0]] === '*') {
+      if (endValue > 0) {
+        return [...arrayString.slice(0, NumValue[0] + 1), '(', '-', endValue, ')'].join('')
+      }
+      return [...arrayString.slice(0, NumValue[0] + 1), '(', '+', endValue, ')'].join('')
+    }
+    if (arrayString < 0) return ['+', ...arrayString].join('')
+    if (arrayString > 0) return ['-', ...arrayString].join('')
+    return arrayString
   }
 }
 

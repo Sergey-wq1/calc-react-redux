@@ -30,7 +30,7 @@ import functions from './data/functions'
 import typeOperation from './scripts/buttonCalback'
 import History from './components/History'
 import ButtonJSX from './scripts/retButJSX'
-import GetRequest from './scripts/GetRequest'
+import getHistory from './scripts/GetRequest'
 
 function App(props) {
   // eslint-disable-next-line react/destructuring-assignment
@@ -57,7 +57,7 @@ function App(props) {
   })
 
   useEffect(() => {
-    dispatch(GetRequest.getHistory())
+    dispatch(getHistory())
   // eslint-disable-next-line react/destructuring-assignment
   }, [props.counter.updateNedeed])
 
