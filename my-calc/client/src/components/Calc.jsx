@@ -1,20 +1,33 @@
 import Box from '@mui/material/Box'
 import React from 'react'
-import '../styles/calc.scss'
+import { makeStyles } from '@mui/styles'
 
-export const Calc = ({ values, operationArray }) => (
-  <div>
-    <Box
-      className="display"
-      component="span"
-      sx={{
-        bgcolor: '#B0D6DE', border: 1, borderRadius: 4, display: 'block', color: 'black',
-      }}
-    >
-      {values.counter.counter}
-    </Box>
-    <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }} className="calc-grid">{operationArray}</Box>
-  </div>
-)
+const useStyles = makeStyles({
+  display: {
+    fontSize: 48,
+    width: 300,
+    textAlign: 'right',
+    fontWeight: 300,
+    height: 100,
+  },
+})
+
+export const Calc = ({ values, operationArray }) => {
+  const classes = useStyles()
+  return (
+    <div>
+      <Box
+        className={classes.display}
+        component="span"
+        sx={{
+          bgcolor: '#B0D6DE', border: 1, borderRadius: 4, display: 'block', color: 'black',
+        }}
+      >
+        {values.counter.counter}
+      </Box>
+      <Box sx={{ width: 300, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>{operationArray}</Box>
+    </div>
+  )
+}
 
 export default Calc

@@ -40,7 +40,7 @@ class OperationSign {
     const returndedValue = array.toString()
     const lengthArray = returndedValue.length
     const returnEnd = [returndedValue.slice(0, lengthArray), '0']
-    if (returndedValue[lengthArray - 1] > 0) return [...returndedValue.slice(0, lengthArray)].join('')
+    if (returndedValue[lengthArray - 1] >= 0) return [...returndedValue.slice(0, lengthArray)].join('')
     return returnEnd.join('')
   }
 

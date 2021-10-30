@@ -91,11 +91,13 @@ const numReducer = (state = initialState, action) => {
       }
     case evalNumOperation:
       Fetch('/', 'POST', state.counter, operationSign.putFirst(operationSign.endValue(state.counter)))
+      // eslint-disable-next-line no-case-declarations
+      const result = operationSign.putFirst(operationSign.endValue(state.counter))
       return {
         ...state,
         updateNedeed: state.updateNedeed + 1,
         disabledPoint: false,
-        counter: operationSign.putFirst(operationSign.endValue(state.counter)),
+        counter: result.toFixed(2),
       }
     case deleteHistory:
       deleteRequest(action.expression, action.result)

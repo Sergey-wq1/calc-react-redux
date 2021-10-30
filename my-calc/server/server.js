@@ -25,8 +25,8 @@ connectDb()
 
 app.get('/data', (req, res) => {
     History.find({}, function (err, docs) {
-        mongoose.disconnect()
         if (err) return res.send(err)
+        console.log('отправляю ', docs.length === 0)
         res.send(docs)
     })
 })
