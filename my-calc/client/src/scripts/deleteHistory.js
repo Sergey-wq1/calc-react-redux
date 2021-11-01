@@ -8,7 +8,7 @@ const deleteRequest = (expression, result) => {
       expression,
       result,
     }),
-  }).then((res) => res.json())
+  })
 }
 
 export default deleteRequest

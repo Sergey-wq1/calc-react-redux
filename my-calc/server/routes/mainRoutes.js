@@ -1,6 +1,5 @@
 const express = require('express')
 const jsonParser = express.json()
-const mongoose = require('mongoose')
 const router = express.Router()
 const History = require('./../models/History.models')
 
@@ -24,15 +23,19 @@ router.post("/", jsonParser, function (req, res) {
 })
 
 router.delete('/', jsonParser, function (req, res) {
-    if (!req.body) return res.sendStatus(400)
-    const {expression,result} = req.body
-    console.log('удаляю >>' + result + expression)
-    History.deleteOne({
-        expression,
-        result
-    }, function (err, result) {
-        if (err) return res.send('Обрабатываю запрос...')
-    })
+    try{
+        if (!req.body) return res.sendStatus(400)
+        const {expression, result} = req.body
+        History.deleteOne({
+            expression,
+            result
+        }, function (err, result) {
+            if (err) return res.send(err)
+        })
+        res.end()
+    } catch(e){
+        console.log(e)
+    }
 })
 
 module.exports = router

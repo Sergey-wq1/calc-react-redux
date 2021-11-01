@@ -60,6 +60,7 @@ const History = ({ history }) => {
   const changesPages = (event, value) => {
     const changeHistoryPages = (timesArray[value - 1] === undefined)
       ? <div className={classes.dodntHistory}>истории нет</div> : timesArray[value - 1]
+    console.log(changeHistoryPages)
     setPage(changeHistoryPages)
   }
   return (

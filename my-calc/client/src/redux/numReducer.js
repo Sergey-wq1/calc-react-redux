@@ -97,7 +97,7 @@ const numReducer = (state = initialState, action) => {
         ...state,
         updateNedeed: state.updateNedeed + 1,
         disabledPoint: false,
-        counter: result.toFixed(2),
+        counter: result,
       }
     case deleteHistory:
       deleteRequest(action.expression, action.result)

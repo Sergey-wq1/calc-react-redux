@@ -4,11 +4,12 @@ import { makeStyles } from '@mui/styles'
 
 const useStyles = makeStyles({
   display: {
-    fontSize: 48,
-    width: 300,
+    fontSize: 28,
+    width: 'auto',
+    whiteSpace: 'normal',
     textAlign: 'right',
     fontWeight: 300,
-    height: 100,
+    height: 90,
   },
 })
 
