@@ -13,9 +13,15 @@ plugins:
   - react
 rules: {
   semi: ["error", "never"],
-  linebreak-style: ["error", "unix"],
+  linebreak-style: ["error", "windows"],
   import/no-named-as-default: 0,
   react/prop-types: 0,
   react/jsx-filename-extension: [1, { "extensions": [".js", ".jsx"] }],
   no-case-declarations: "error",
+  no-fallthrough: "off",
+  no-unused-vars: "off",
+  react/button-has-type: "off",
+  padded-blocks: 'off',
+  "eol-last": 0,
+  "no-multiple-empty-lines": [ "error", { "max": 1, "maxEOF": 0 } ],
 }
